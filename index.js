@@ -10,6 +10,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', router);
 
+app.get('/', (req, res) => {
+    res.render('home.ejs');
+})
+
 app.get('/tasks', async(req, res) => {
     const tasks = await prisma.tasks.findMany({
         orderBy: {
