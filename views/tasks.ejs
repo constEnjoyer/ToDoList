@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>ToDoList</title>
+</head>
+
+<body>
+    <form action="http://localhost:3000/api/tasks/createTask" method="post">
+        <input type="text" name="text" placeholder="Enter your task" required>
+        <button type="submit">Add Task</button>
+    </form>
+    <div>
+        <% if (Array.isArray(tasks)) { %>
+            <% tasks.forEach(task => { %>
+                <div class="task-item" data-id="<%= task.id %>">
+                    <p>
+                        <%= task.text %> -
+                            <%= task.completed ? 'Completed' : 'Not Completed' %>
+                                <form action="http://localhost:3000/api/tasks/deleteTask/<%= task.id %>" method="post">
+                                    <button class="delete-btn">Delete</button>
+                                </form>
+                                <form action="http://localhost:3000/api/tasks/updateTask/<%= task.id %>" method="post">
+                                    <button class="update-btn">Update</button>
+                                </form>
+                    </p>
+                </div>
+                <% }) %>
+                    <% } else { %>
+                        <p>No tasks available</p>
+                        <% } %>
+                            <form action="http://localhost:3000/api/tasks/deleteTasks" method="post">
+                                <button class="clearall">clear all</button>
+                            </form>
+    </div>
+</body>
+
+</html>
